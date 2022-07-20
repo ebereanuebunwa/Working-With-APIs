@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from rest_framework.generics import ListAPIView, CreateAPIView, UpdateAPIView, DestroyAPIView
+from rest_framework.generics import ListAPIView, CreateAPIView, UpdateAPIView, DestroyAPIView, RetrieveAPIView
 from .serializers import LinkSerializer
 from .models import Link
 
@@ -15,12 +15,17 @@ class PostCreateApi(CreateAPIView):
     serializer_class = LinkSerializer
 
 
-class LinkUpdateApi(UpdateAPIView):
+class PostDetailApi(RetrieveAPIView):  
+    queryset = Link.objects.filter(active=True)  
+    serializer_class = LinkSerializer
+
+
+class PostUpdateApi(UpdateAPIView):
     queryset = Link.objects.filter(active=True)
     serializer_class = LinkSerializer
 
 
-class LinkDeleteApi(DestroyAPIView):
+class PostDeleteApi(DestroyAPIView):
     queryset = Link.objects.filter(active=True)
     serializer_class = LinkSerializer
 
